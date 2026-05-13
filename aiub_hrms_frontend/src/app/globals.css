@@ -1,188 +1,96 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap');
-
 @import "tailwindcss";
 
 :root {
-  /* Premium Primary — AIUB Deep Navy */
-  --color-primary: #0a2540;
-  --color-primary-container: #1e3a5f;
-  --color-primary-fixed: #e2e8f0;
-  --color-primary-fixed-dim: #cbd5e1;
-  --color-on-primary: #ffffff;
-  
-  /* Premium Secondary — AIUB Gold / Amber */
-  --color-secondary: #d97706;
-  --color-secondary-container: #f59e0b;
-  --color-secondary-fixed: #fef3c7;
-  --color-on-secondary: #ffffff;
-  --color-on-secondary-fixed-variant: #92400e;
+  /* Brand */
+  --color-primary: #1a56db;
+  --color-primary-dark: #1341b4;
+  --color-primary-light: #ebf0ff;
+  --color-accent: #7c3aed;
+  --color-accent-light: #ede9fe;
 
-  /* Premium Tertiary — Sky / Indigo Accent */
-  --color-tertiary: #4f46e5;
-  --color-tertiary-container: #6366f1;
-  --color-tertiary-fixed: #e0e7ff;
-  --color-on-tertiary: #ffffff;
-
-  /* Surface & Background */
-  --color-background: #f8fafc;
+  /* Neutrals */
+  --color-background: #f5f7fa;
   --color-surface: #ffffff;
-  --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f1f5f9;
-  --color-surface-container: #e2e8f0;
-  --color-surface-container-high: #cbd5e1;
-  --color-on-surface: #0f172a;
-  --color-on-surface-variant: #64748b;
+  --color-surface-raised: #f0f4ff;
+  --color-border: #e5e7eb;
+  --color-border-focus: #1a56db;
 
-  /* Utility */
-  --color-outline: #94a3b8;
-  --color-outline-variant: #e2e8f0;
-  --color-error: #ef4444;
-  --color-error-container: #fee2e2;
-  --color-success: #10b981;
-  --color-success-container: #d1fae5;
+  /* Text */
+  --color-text: #111827;
+  --color-text-muted: #6b7280;
+  --color-text-subtle: #9ca3af;
+
+  /* Status */
+  --color-success: #059669;
+  --color-success-light: #d1fae5;
+  --color-warning: #d97706;
+  --color-warning-light: #fef3c7;
+  --color-danger: #dc2626;
+  --color-danger-light: #fee2e2;
+  --color-info: #0284c7;
+  --color-info-light: #e0f2fe;
+
+  /* Layout */
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 72px;
+  --topbar-height: 64px;
+  --content-max-width: 1400px;
+  --page-padding-x: 2rem;
+  --page-padding-y: 2rem;
 
   /* Typography */
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-display: 'Outfit', system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+  --font-heading: "Plus Jakarta Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 
-  /* Spacing & Sizes */
-  --sidebar-width: 280px;
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
-  --radius-2xl: 2rem;
-  
-  /* Premium Shadows & Glows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --shadow-glow: 0 0 20px rgba(79, 70, 229, 0.3);
-  --shadow-glow-secondary: 0 0 20px rgba(245, 158, 11, 0.3);
-  
-  /* Glassmorphism */
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.5);
-  --glass-blur: blur(16px);
-  --glass-shadow: 0 8px 32px 0 rgba(10, 37, 64, 0.05);
+  /* Elevation */
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.04);
+  --shadow-lg: 0 10px 24px -4px rgb(0 0 0 / 0.10), 0 4px 8px -4px rgb(0 0 0 / 0.05);
+  --shadow-xl: 0 20px 40px -8px rgb(0 0 0 / 0.12);
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* Global resets */
+*, *::before, *::after { box-sizing: border-box; }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   background-color: var(--color-background);
-  color: var(--color-on-surface);
-  line-height: 1.5;
+  color: var(--color-text);
   -webkit-font-smoothing: antialiased;
-  position: relative;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Global Mesh Gradient Background */
-.mesh-bg {
-  background-color: var(--color-background);
-  background-image: 
-    radial-gradient(at 40% 20%, hsla(210,100%,94%,1) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, hsla(220,100%,92%,1) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, hsla(200,100%,95%,1) 0px, transparent 50%),
-    radial-gradient(at 80% 50%, hsla(215,100%,93%,1) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, hsla(220,100%,94%,1) 0px, transparent 50%),
-    radial-gradient(at 80% 100%, hsla(205,100%,92%,1) 0px, transparent 50%),
-    radial-gradient(at 0% 0%, hsla(210,100%,95%,1) 0px, transparent 50%);
-  background-attachment: fixed;
-}
-
-/* Typography Overrides */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
-  letter-spacing: -0.02em;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--color-outline-variant); border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-outline); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-subtle); }
 
-/* Material Symbols */
-.material-symbols-outlined {
-  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
-  font-family: 'Material Symbols Outlined';
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-}
-.material-symbols-outlined.filled {
-  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }
 
-/* Glassmorphism Utilities */
-.glass {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-}
-.glass-dark {
-  background: rgba(10, 37, 64, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
-}
-
-/* Smooth Interactive Elements */
-.interactive {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.interactive:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-.interactive:active {
-  transform: translateY(1px);
-}
-
-/* Status Badges */
-.badge-active { background-color: var(--color-success-container); color: #065f46; }
-.badge-inactive { background-color: var(--color-surface-container-high); color: var(--color-on-surface-variant); }
-.badge-on_leave { background-color: #fef9c3; color: #854d0e; }
-.badge-terminated { background-color: var(--color-error-container); color: var(--color-error); }
-.badge-pending { background-color: var(--color-secondary-fixed); color: var(--color-on-secondary-fixed-variant); }
-.badge-approved { background-color: var(--color-success-container); color: #065f46; }
-.badge-rejected { background-color: var(--color-error-container); color: var(--color-error); }
-.badge-draft { background-color: var(--color-surface-container-high); color: var(--color-on-surface-variant); }
-.badge-processing { background-color: var(--color-tertiary-fixed); color: #3730a3; }
-.badge-paid { background-color: var(--color-success-container); color: #065f46; }
-
-/* Abstract Auth Background Animation */
-@keyframes blob {
-  0% { transform: translate(0px, 0px) scale(1); }
-  33% { transform: translate(30px, -50px) scale(1.1); }
-  66% { transform: translate(-20px, 20px) scale(0.9); }
-  100% { transform: translate(0px, 0px) scale(1); }
-}
-.animate-blob {
-  animation: blob 7s infinite;
-}
-.animation-delay-2000 {
-  animation-delay: 2s;
-}
-.animation-delay-4000 {
-  animation-delay: 4s;
+/* Page transition wrapper */
+.page-enter {
+  opacity: 0;
+  transform: translateY(16px);
 }

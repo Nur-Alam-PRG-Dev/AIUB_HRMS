@@ -1,16 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { employeeApi, departmentApi, designationApi } from "@/lib/api";
-import { formatBDT, statusClass } from "@/lib/utils/format";
+import { employeeApi, departmentApi } from "@/lib/api";
+import { statusClass } from "@/lib/utils/format";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 export default function EmployeesPage() {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
   const [departments, setDepartments] = useState([]);
   const [filterDept, setFilterDept] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -32,19 +34,34 @@ export default function EmployeesPage() {
     }
   };
 
+  const filteredEmployees = employees.filter(emp => 
+    (emp.first_name + " " + emp.last_name).toLowerCase().includes(search.toLowerCase()) ||
+    emp.employee_id.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-end">
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-6">
         <div>
-          <h1 className="text-2xl font-bold" style={{ color: "var(--color-primary)" }}>Employees</h1>
-          <p className="text-sm" style={{ color: "var(--color-on-surface-variant)" }}>
+          <h1 className="text-3xl font-extrabold text-slate-800 tracking-tight">Directory</h1>
+          <p className="text-slate-500 font-medium mt-1">
             Manage university staff and faculty members
           </p>
         </div>
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
+          <div className="relative">
+            <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+            <input
+              type="text"
+              placeholder="Search directory..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-11 pr-4 py-3 rounded-xl text-sm font-medium outline-none bg-white border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all shadow-sm w-64"
+            />
+          </div>
           <select
-            className="px-4 py-2 rounded-lg text-sm border outline-none"
-            style={{ borderColor: "var(--color-outline-variant)", background: "var(--color-surface-container-lowest)" }}
+            className="px-4 py-3 rounded-xl text-sm font-medium outline-none bg-white border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all shadow-sm cursor-pointer"
             value={filterDept}
             onChange={(e) => setFilterDept(e.target.value)}
           >
@@ -54,57 +71,61 @@ export default function EmployeesPage() {
             ))}
           </select>
           <Link href="/employees/new">
-            <button
-              className="flex items-center gap-2 px-5 py-2 rounded-lg font-semibold text-sm transition-all"
-              style={{ background: "var(--color-primary)", color: "white" }}
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="h-full px-6 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-indigo-600 to-blue-500 shadow-md shadow-indigo-500/20 transition-all flex items-center gap-2"
             >
-              <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>add</span>
-              Add Employee
-            </button>
+              <span className="material-symbols-outlined text-[20px]">person_add</span>
+              Add New
+            </motion.button>
           </Link>
         </div>
       </div>
 
-      <div
-        className="rounded-xl overflow-hidden"
-        style={{
-          background: "var(--color-surface-container-lowest)",
-          border: "1px solid var(--color-outline-variant)",
-          boxShadow: "var(--shadow-card)",
-        }}
+      {/* Table Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="glass rounded-3xl overflow-hidden shadow-xl shadow-slate-200/50 border border-slate-200/60"
       >
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left">
             <thead>
-              <tr style={{ background: "var(--color-surface-container-low)" }}>
-                <th className="px-6 py-4 font-bold" style={{ color: "var(--color-on-surface-variant)" }}>Employee</th>
-                <th className="px-6 py-4 font-bold" style={{ color: "var(--color-on-surface-variant)" }}>ID</th>
-                <th className="px-6 py-4 font-bold" style={{ color: "var(--color-on-surface-variant)" }}>Department</th>
-                <th className="px-6 py-4 font-bold" style={{ color: "var(--color-on-surface-variant)" }}>Designation</th>
-                <th className="px-6 py-4 font-bold" style={{ color: "var(--color-on-surface-variant)" }}>Status</th>
-                <th className="px-6 py-4 font-bold text-right" style={{ color: "var(--color-on-surface-variant)" }}>Actions</th>
+              <tr className="bg-slate-50/80 border-b border-slate-200/60">
+                <th className="px-8 py-5 font-bold text-slate-500 uppercase tracking-wider text-xs">Employee</th>
+                <th className="px-8 py-5 font-bold text-slate-500 uppercase tracking-wider text-xs">ID</th>
+                <th className="px-8 py-5 font-bold text-slate-500 uppercase tracking-wider text-xs">Department & Role</th>
+                <th className="px-8 py-5 font-bold text-slate-500 uppercase tracking-wider text-xs">Status</th>
+                <th className="px-8 py-5 font-bold text-slate-500 uppercase tracking-wider text-xs text-right">Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-slate-100 bg-white/40">
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="text-center py-10 text-gray-500">Loading employees...</td>
+                  <td colSpan={5} className="text-center py-16">
+                    <div className="w-8 h-8 rounded-full border-4 border-slate-200 border-t-indigo-500 animate-spin mx-auto" />
+                  </td>
                 </tr>
-              ) : employees.length === 0 ? (
+              ) : filteredEmployees.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="text-center py-10 text-gray-500">No employees found.</td>
+                  <td colSpan={5} className="text-center py-16">
+                    <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto mb-4">
+                      <span className="material-symbols-outlined text-slate-400 text-3xl">person_off</span>
+                    </div>
+                    <p className="text-slate-500 font-medium">No employees found.</p>
+                  </td>
                 </tr>
               ) : (
-                employees.map((emp) => (
+                filteredEmployees.map((emp) => (
                   <tr
                     key={emp.id}
-                    className="hover:bg-[var(--color-surface-container-low)] transition-colors"
-                    style={{ borderBottom: "1px solid var(--color-outline-variant)" }}
+                    className="group hover:bg-white/80 transition-all duration-300"
                   >
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center font-bold text-xs"
-                             style={{ color: "var(--color-primary)" }}>
+                    <td className="px-8 py-4">
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-100 to-sky-100 border border-white shadow-sm flex items-center justify-center font-bold text-indigo-600">
                           {emp.photo ? (
                             <img src={emp.photo} className="w-full h-full rounded-full object-cover" alt="" />
                           ) : (
@@ -112,22 +133,29 @@ export default function EmployeesPage() {
                           )}
                         </div>
                         <div>
-                          <p className="font-semibold" style={{ color: "var(--color-on-surface)" }}>{emp.first_name} {emp.last_name}</p>
-                          <p className="text-xs text-gray-500">{emp.user?.email}</p>
+                          <p className="font-bold text-slate-800">{emp.first_name} {emp.last_name}</p>
+                          <p className="text-xs font-medium text-slate-500 mt-0.5">{emp.user?.email}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 font-medium text-gray-700">{emp.employee_id}</td>
-                    <td className="px-6 py-4 text-gray-600">{emp.department?.name || '—'}</td>
-                    <td className="px-6 py-4 text-gray-600">{emp.designation?.title || '—'}</td>
-                    <td className="px-6 py-4">
-                      <span className={`px-2.5 py-1 rounded-md text-xs font-semibold ${statusClass(emp.status)}`}>
-                        {emp.status.replace("_", " ").toUpperCase()}
+                    <td className="px-8 py-4">
+                      <span className="font-bold text-slate-600 bg-slate-100 px-3 py-1 rounded-md text-xs">{emp.employee_id}</span>
+                    </td>
+                    <td className="px-8 py-4">
+                      <p className="font-bold text-slate-700">{emp.department?.name || '—'}</p>
+                      <p className="text-xs font-medium text-slate-500 mt-0.5">{emp.designation?.title || '—'}</p>
+                    </td>
+                    <td className="px-8 py-4">
+                      <span className={`px-3 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-wide inline-flex items-center gap-1.5 ${statusClass(emp.status)}`}>
+                        <span className="w-1.5 h-1.5 rounded-full bg-current" />
+                        {emp.status.replace("_", " ")}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-right">
+                    <td className="px-8 py-4 text-right">
                       <Link href={`/employees/${emp.id}`}>
-                        <button className="text-blue-600 hover:text-blue-800 font-medium">View</button>
+                        <button className="w-8 h-8 rounded-full bg-white border border-slate-200 text-slate-500 hover:text-indigo-600 hover:border-indigo-300 hover:bg-indigo-50 transition-all flex items-center justify-center shadow-sm ml-auto">
+                          <span className="material-symbols-outlined text-[18px]">visibility</span>
+                        </button>
                       </Link>
                     </td>
                   </tr>
@@ -136,7 +164,7 @@ export default function EmployeesPage() {
             </tbody>
           </table>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

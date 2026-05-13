@@ -1,131 +1,213 @@
 "use client";
-
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import { useAuthStore } from "@/store/authStore";
-import { authApi } from "@/lib/api";
-import toast from "react-hot-toast";
-import { getInitials } from "@/lib/utils/format";
+import {
+  RiDashboardLine, RiDashboardFill,
+  RiTeamLine, RiTeamFill,
+  RiMoneyDollarCircleLine, RiMoneyDollarCircleFill,
+  RiFileListLine, RiFileListFill,
+  RiCalendarCheckLine, RiCalendarCheckFill,
+  RiTimeLine, RiTimeFill,
+  RiMegaphoneLine, RiMegaphoneFill,
+  RiBarChartBoxLine, RiBarChartBoxFill,
+  RiShieldLine, RiMenuFoldLine, RiMenuUnfoldLine,
+  RiLogoutBoxLine, RiBuildingLine,
+} from "react-icons/ri";
+import { cn } from "@/lib/utils/cn";
 
-const navItems = [
-  { href: "/dashboard", icon: "dashboard", label: "Dashboard" },
-  { href: "/employees", icon: "badge", label: "Employees" },
-  { href: "/departments", icon: "domain", label: "Departments" },
-  { href: "/salary", icon: "payments", label: "Salary" },
-  { href: "/payroll", icon: "receipt_long", label: "Payroll" },
-  { href: "/leave", icon: "event_busy", label: "Leave" },
-  { href: "/attendance", icon: "fact_check", label: "Attendance" },
-  { href: "/announcements", icon: "campaign", label: "Announcements" },
-  { href: "/reports", icon: "assessment", label: "Reports" },
-  { href: "/admin", icon: "admin_panel_settings", label: "Admin", roles: ["super_admin", "hr_admin"] },
+const NAV_ITEMS = [
+  { label: "Dashboard", href: "/dashboard", icon: RiDashboardLine, activeIcon: RiDashboardFill, roles: ["all"] },
+  { label: "Employees", href: "/employees", icon: RiTeamLine, activeIcon: RiTeamFill, roles: ["super_admin", "hr_admin", "manager"] },
+  { label: "Departments", href: "/departments", icon: RiBuildingLine, activeIcon: RiBuildingLine, roles: ["super_admin", "hr_admin"] },
+  { label: "Salary", href: "/salary", icon: RiMoneyDollarCircleLine, activeIcon: RiMoneyDollarCircleFill, roles: ["super_admin", "hr_admin"] },
+  { label: "Payroll", href: "/payroll", icon: RiFileListLine, activeIcon: RiFileListFill, roles: ["super_admin", "hr_admin"] },
+  { label: "Leave", href: "/leave", icon: RiCalendarCheckLine, activeIcon: RiCalendarCheckFill, roles: ["all"] },
+  { label: "Attendance", href: "/attendance", icon: RiTimeLine, activeIcon: RiTimeFill, roles: ["all"] },
+  { label: "Announcements", href: "/announcements", icon: RiMegaphoneLine, activeIcon: RiMegaphoneFill, roles: ["all"] },
+  { label: "Reports", href: "/reports", icon: RiBarChartBoxLine, activeIcon: RiBarChartBoxFill, roles: ["super_admin", "hr_admin"] },
+  { label: "Admin Panel", href: "/admin", icon: RiShieldLine, activeIcon: RiShieldLine, roles: ["super_admin", "hr_admin"] },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ collapsed, onToggle, isMobileOpen, onMobileClose }) {
   const pathname = usePathname();
-  const router = useRouter();
   const { user, role, clearAuth } = useAuthStore();
 
-  const handleLogout = async () => {
-    try {
-      await authApi.logout();
-    } catch (e) {}
-    clearAuth();
-    toast.success("Logged out successfully");
-    router.push("/login");
-  };
-
-  const visibleNav = navItems.filter(
-    (item) => !item.roles || item.roles.includes(role)
+  const visibleItems = NAV_ITEMS.filter((item) =>
+    item.roles.includes("all") || item.roles.includes(role)
   );
 
-  return (
-    <aside
-      className="fixed left-0 top-0 h-screen z-50 flex flex-col py-6"
-      style={{
-        width: "var(--sidebar-width)",
-        background: "linear-gradient(180deg, var(--color-primary-container), var(--color-primary))",
-        boxShadow: "4px 0 16px rgba(0,30,64,0.15)",
-      }}
-    >
+  const handleLogout = async () => {
+    clearAuth();
+    window.location.href = "/login";
+  };
+
+  const SidebarContent = () => (
+    <div className="flex flex-col h-full">
       {/* Logo */}
-      <div className="px-6 mb-8">
-        <h1
-          className="font-bold text-white"
-          style={{ fontSize: "20px", letterSpacing: "-0.02em" }}
+      <div className={cn(
+        "flex items-center h-16 px-4 border-b border-border flex-shrink-0",
+        collapsed ? "justify-center" : "justify-between"
+      )}>
+        <AnimatePresence mode="wait">
+          {!collapsed ? (
+            <motion.div
+              key="full-logo"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.2 }}
+              className="flex items-center gap-3"
+            >
+              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
+                <span className="text-white font-bold text-sm">A</span>
+              </div>
+              <div className="leading-none">
+                <p className="font-bold text-sm text-text">AIUB HRMS</p>
+                <p className="text-[10px] text-text-muted mt-0.5">HR Management</p>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="icon-logo"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center"
+            >
+              <span className="text-white font-bold text-sm">A</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Toggle button — desktop only */}
+        <button
+          onClick={onToggle}
+          className="hidden lg:flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-200 text-text-muted hover:text-text transition-colors"
         >
-          AIUB HRMS
-        </h1>
-        <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.6)", marginTop: "2px" }}>
-          University Management
-        </p>
+          {collapsed ? <RiMenuUnfoldLine size={16} /> : <RiMenuFoldLine size={16} />}
+        </button>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-grow flex flex-col gap-1 overflow-y-auto px-4"
-        style={{ scrollbarWidth: "none" }}>
-        {visibleNav.map((item) => {
-          const isActive = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
+      {/* Nav */}
+      <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-0.5">
+        {visibleItems.map((item) => {
+          const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+          const Icon = isActive ? item.activeIcon : item.icon;
           return (
-            <Link key={item.href} href={item.href}>
-              <motion.div
-                whileHover={{ x: 2 }}
-                className={`flex items-center gap-3 px-4 py-3 rounded-full cursor-pointer transition-all duration-200 ${
-                  isActive
-                    ? "bg-white text-[var(--color-primary)]"
-                    : "text-white/80 hover:bg-white/10"
-                }`}
-              >
-                <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>
-                  {item.icon}
-                </span>
-                <span style={{ fontSize: "14px", fontWeight: isActive ? "600" : "400" }}>
-                  {item.label}
-                </span>
-                {isActive && (
-                  <motion.div
-                    layoutId="activeIndicator"
-                    className="ml-auto w-1.5 h-1.5 rounded-full bg-[var(--color-secondary-container)]"
-                  />
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={onMobileClose}
+              className={cn(
+                "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-150 group relative",
+                collapsed ? "justify-center" : "",
+                isActive
+                  ? "bg-primary text-white shadow-sm"
+                  : "text-text-muted hover:bg-base-200 hover:text-text"
+              )}
+            >
+              <Icon size={20} className="flex-shrink-0" />
+              <AnimatePresence>
+                {!collapsed && (
+                  <motion.span
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: "auto" }}
+                    exit={{ opacity: 0, width: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-sm font-medium whitespace-nowrap overflow-hidden"
+                  >
+                    {item.label}
+                  </motion.span>
                 )}
-              </motion.div>
+              </AnimatePresence>
+
+              {/* Tooltip on collapsed */}
+              {collapsed && (
+                <div className="absolute left-full ml-2 px-2 py-1 bg-neutral text-neutral-content text-xs rounded-md whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 shadow-lg">
+                  {item.label}
+                </div>
+              )}
             </Link>
           );
         })}
       </nav>
 
-      {/* User footer */}
-      <div
-        className="mx-4 mt-4 pt-4"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.15)" }}
-      >
-        <div className="flex items-center gap-3 px-2 mb-3">
-          <div
-            className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
-            style={{
-              background: "var(--color-secondary-container)",
-              color: "var(--color-on-secondary-fixed-variant)",
-            }}
+      {/* User profile bottom */}
+      <div className={cn("p-3 border-t border-border flex-shrink-0", collapsed ? "flex justify-center" : "")}>
+        {!collapsed ? (
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+              {user?.avatar ? (
+                <img src={user.avatar} alt={user.name} className="w-9 h-9 rounded-full object-cover" />
+              ) : (
+                <span className="text-primary font-semibold text-sm">
+                  {user?.name?.charAt(0).toUpperCase()}
+                </span>
+              )}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-text truncate">{user?.name}</p>
+              <p className="text-xs text-text-muted truncate capitalize">{role?.replace("_", " ")}</p>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="p-1.5 rounded-md hover:bg-danger/10 hover:text-danger text-text-muted transition-colors"
+              title="Logout"
+            >
+              <RiLogoutBoxLine size={17} />
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={handleLogout}
+            className="p-2 rounded-lg hover:bg-danger/10 hover:text-danger text-text-muted transition-colors"
+            title="Logout"
           >
-            {user?.avatar ? (
-              <img src={user.avatar} alt="" className="w-full h-full rounded-full object-cover" />
-            ) : (
-              getInitials(user?.name ?? "U")
-            )}
-          </div>
-          <div className="overflow-hidden">
-            <p className="text-white font-semibold text-sm truncate">{user?.name}</p>
-            <p className="text-white/60 text-xs capitalize">{role?.replace("_", " ")}</p>
-          </div>
-        </div>
-        <button
-          onClick={handleLogout}
-          className="flex items-center gap-3 px-4 py-2 w-full rounded-full text-white/80 hover:bg-white/10 transition-colors text-sm"
-        >
-          <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>logout</span>
-          Logout
-        </button>
+            <RiLogoutBoxLine size={18} />
+          </button>
+        )}
       </div>
-    </aside>
+    </div>
+  );
+
+  return (
+    <>
+      {/* Desktop Sidebar */}
+      <motion.aside
+        animate={{ width: collapsed ? 72 : 260 }}
+        transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+        className="hidden lg:flex flex-col fixed left-0 top-0 h-full bg-surface border-r border-border z-30 overflow-hidden"
+        style={{ willChange: "width" }}
+      >
+        <SidebarContent />
+      </motion.aside>
+
+      {/* Mobile Drawer */}
+      <AnimatePresence>
+        {isMobileOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={onMobileClose}
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden"
+            />
+            <motion.aside
+              initial={{ x: -280 }}
+              animate={{ x: 0 }}
+              exit={{ x: -280 }}
+              transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+              className="fixed left-0 top-0 h-full w-64 bg-surface border-r border-border z-50 flex flex-col lg:hidden"
+            >
+              <SidebarContent />
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

@@ -1,6 +1,24 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 import Cookies from "js-cookie";
+
+const isProduction = process.env.NODE_ENV === "production";
+
+const setAuthCookies = (token, role) => {
+  const cookieOptions = {
+    expires: 7,
+    sameSite: "lax",          // CHANGED: strict → lax (strict blocks redirects from Google OAuth)
+    secure: isProduction,     // CHANGED: only secure in production, not localhost
+    path: "/",
+  };
+  Cookies.set("hrms_token", token, cookieOptions);
+  Cookies.set("hrms_role", role, cookieOptions);
+};
+
+const clearAuthCookies = () => {
+  Cookies.remove("hrms_token", { path: "/" });
+  Cookies.remove("hrms_role", { path: "/" });
+};
 
 export const useAuthStore = create(
   persist(
@@ -9,18 +27,13 @@ export const useAuthStore = create(
       token: null,
       role: null,
       permissions: [],
+      isHydrated: false,          // NEW: track hydration state
+
+      setHydrated: () => set({ isHydrated: true }),
 
       setAuth: (user, token) => {
-        const role = user.roles?.[0] ?? null;
-        Cookies.set("hrms_token", token, {
-          expires: 7,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "strict",
-        });
-        Cookies.set("hrms_role", role ?? "", {
-          expires: 7,
-          sameSite: "strict",
-        });
+        const role = user.roles?.[0]?.name ?? "employee";
+        setAuthCookies(token, role);
         set({
           user,
           token,
@@ -30,8 +43,7 @@ export const useAuthStore = create(
       },
 
       clearAuth: () => {
-        Cookies.remove("hrms_token");
-        Cookies.remove("hrms_role");
+        clearAuthCookies();
         set({ user: null, token: null, role: null, permissions: [] });
       },
 
@@ -39,22 +51,14 @@ export const useAuthStore = create(
         const { permissions, role } = get();
         return role === "super_admin" || permissions.includes(permission);
       },
-
-      hasRole: (...roles) => {
-        const { role } = get();
-        return roles.includes(role);
-      },
-
-      isAuthenticated: () => !!get().token,
     }),
     {
-      name: "hrms-auth",
-      partialize: (state) => ({
-        user: state.user,
-        token: state.token,
-        role: state.role,
-        permissions: state.permissions,
-      }),
+      name: "hrms-auth-storage",
+      storage: createJSONStorage(() => localStorage),
+      onRehydrateStorage: () => (state) => {
+        // Called once localStorage rehydration completes
+        state?.setHydrated();
+      },
     }
   )
 );
