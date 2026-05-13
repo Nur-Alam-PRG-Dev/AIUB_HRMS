@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Payroll Run | AIUB HRMS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f7f9fc;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#d5e3ff",
+                        "surface-container": "#eceef1",
+                        "on-tertiary-fixed-variant": "#00497c",
+                        "tertiary": "#001f39",
+                        "on-secondary-container": "#715300",
+                        "surface-container-low": "#f2f4f7",
+                        "surface": "#f7f9fc",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#3a5f94",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#d1e4ff",
+                        "tertiary-fixed-dim": "#9dcaff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#1f477b",
+                        "secondary-fixed": "#ffdea0",
+                        "on-primary-container": "#799dd6",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2d3133",
+                        "surface-dim": "#d8dadd",
+                        "primary-fixed-dim": "#a7c8ff",
+                        "tertiary-container": "#00355c",
+                        "on-surface": "#191c1e",
+                        "on-primary": "#ffffff",
+                        "on-surface-variant": "#43474f",
+                        "on-tertiary-container": "#50a0ed",
+                        "on-secondary-fixed": "#261a00",
+                        "secondary": "#795900",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#a7c8ff",
+                        "surface-container-highest": "#e0e3e6",
+                        "inverse-on-surface": "#eff1f4",
+                        "secondary-fixed-dim": "#f4be43",
+                        "on-tertiary-fixed": "#001d35",
+                        "surface-variant": "#e0e3e6",
+                        "secondary-container": "#fdc74b",
+                        "primary-container": "#003366",
+                        "surface-container-high": "#e6e8eb",
+                        "background": "#f7f9fc",
+                        "outline": "#737780",
+                        "on-primary-fixed": "#001b3c",
+                        "on-background": "#191c1e",
+                        "on-secondary": "#ffffff",
+                        "primary": "#001e40",
+                        "outline-variant": "#c3c6d1",
+                        "surface-bright": "#f7f9fc",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin_desktop": "40px",
+                        "stack_lg": "24px",
+                        "stack_sm": "8px",
+                        "gutter": "24px",
+                        "container_max_width": "1440px",
+                        "sidebar_width": "260px",
+                        "stack_md": "16px"
+                    },
+                    "fontFamily": {
+                        "metric-value": ["Plus Jakarta Sans"],
+                        "h3": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "h1": ["Plus Jakarta Sans"],
+                        "h2": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-bold": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "metric-value": ["28px", {"lineHeight": "1", "fontWeight": "700"}],
+                        "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-bold": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Sidebar Navigation -->
+<aside class="w-[260px] h-screen fixed left-0 top-0 bg-primary-container dark:bg-primary shadow-md flex flex-col h-full py-6 z-50">
+<div class="px-6 mb-8">
+<h2 class="font-h2 text-h2 font-bold text-on-primary">AIUB HRMS</h2>
+<p class="text-on-primary/60 text-xs tracking-wider uppercase mt-1">University Management</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="text-on-primary-container/80 dark:text-on-primary/80 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="text-on-primary-container/80 dark:text-on-primary/80 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">badge</span>
+<span class="font-body-md text-body-md">Employees</span>
+</a>
+<a class="text-on-primary-container/80 dark:text-on-primary/80 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">domain</span>
+<span class="font-body-md text-body-md">Departments</span>
+</a>
+<a class="text-on-primary-container/80 dark:text-on-primary/80 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-body-md text-body-md">Salary</span>
+</a>
+<!-- Active State for Payroll -->
+<a class="bg-surface-container-lowest text-primary dark:text-on-primary-container rounded-full mx-4 my-1 px-4 py-3 flex items-center gap-3 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span class="font-body-md text-body-md font-semibold">Payroll</span>
+</a>
+<a class="text-on-primary-container/80 dark:text-on-primary/80 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">event_busy</span>
+<span class="font-body-md text-body-md">Leave</span>
+</a>
+<a class="text-on-primary-container/80 dark:text-on-primary/80 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-body-md text-body-md">Reports</span>
+</a>
+<a class="text-on-primary-container/80 dark:text-on-primary/80 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="font-body-md text-body-md">Admin</span>
+</a>
+<a class="text-on-primary-container/80 dark:text-on-primary/80 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-4">
+<a class="text-on-primary-container/80 dark:text-on-primary/80 px-4 py-3 flex items-center gap-3 hover:bg-error/10 hover:text-error transition-colors rounded-full" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-body-md text-body-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-[260px] min-h-screen">
+<!-- Top App Bar -->
+<header class="docked full-width top-0 sticky bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline flex justify-between items-center h-16 px-margin_desktop z-40 shadow-sm">
+<div class="flex items-center gap-4">
+<h1 class="font-h3 text-h3 font-semibold text-primary">HR Management System</h1>
+<div class="h-6 w-[1px] bg-outline-variant mx-2"></div>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-surface-container-low border-none rounded-lg text-body-md focus:ring-2 focus:ring-primary w-64" placeholder="Search payroll records..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-outline hover:bg-surface-container-high p-2 rounded-full transition-colors scale-95 active:scale-90 transition-transform">notifications</button>
+<button class="material-symbols-outlined text-outline hover:bg-surface-container-high p-2 rounded-full transition-colors scale-95 active:scale-90 transition-transform">help</button>
+<div class="flex items-center gap-3 pl-2 border-l border-outline-variant">
+<img alt="User Avatar" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="A professional headshot of a middle-aged male HR director in a charcoal suit, set against a blurred office background with warm lighting. The image has a clean, high-end corporate feel with soft bokeh and realistic skin textures, aligning with a professional administrative UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBv2b08xgfR853Ftzq1EYcArtH0-3sR_fnBkfQtqB2757vZ7oEBfnvnMosQuCHlE5fRhislJXy8fkvNf1lMgBh0ueW-FggT6s3pfDPiboplQYR1wjpPsEuJSK9KvqQRtha3XmFRY1ktd2QJsVUbuym1-wCMeb0-6Urjqks1x60FjV7WXaUU5aAOMjlnXY85i8QVbjEX2DFOm3KiRw54Pr36J98C2WT8fKR4NPMFgyIUHp6ZWK6Ma7EmyrQNT8b6I-6R_BrontlpifAU"/>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-primary">Admin User</span>
+<span class="text-[10px] text-outline uppercase tracking-tighter">Finance Dept</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Payroll Action Header -->
+<div class="px-margin_desktop py-stack_lg flex flex-col md:flex-row justify-between items-end gap-gutter">
+<div>
+<nav class="flex items-center gap-2 text-outline mb-1 text-xs font-semibold">
+<span>FINANCE</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-primary">PAYROLL RUN</span>
+</nav>
+<h2 class="font-h1 text-h1 text-primary">Payroll Run: October 2023</h2>
+<div class="flex items-center gap-4 mt-stack_sm">
+<div class="relative">
+<select class="appearance-none bg-surface-container-highest border-none rounded-lg px-4 py-2 pr-10 text-body-md font-semibold text-primary-container focus:ring-primary cursor-pointer">
+<option>October 2023</option>
+<option>September 2023</option>
+<option>August 2023</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-primary">calendar_month</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 bg-primary text-on-primary px-6 py-2.5 rounded-lg font-semibold hover:bg-secondary transition-colors shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">play_circle</span>
+                    Generate Payroll
+                </button>
+<button class="flex items-center gap-2 bg-[#1b5e20] text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-[#2e7d32] transition-colors shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+                    Approve All
+                </button>
+</div>
+</div>
+<!-- Status Pills (Bento Style) -->
+<div class="px-margin_desktop mb-stack_lg grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="bg-surface-container-lowest p-stack_md rounded-xl shadow-sm border-l-4 border-primary">
+<div class="flex justify-between items-start">
+<span class="text-outline text-label-bold">TOTAL EMPLOYEES</span>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-1 rounded">group</span>
+</div>
+<div class="font-metric-value text-metric-value text-primary mt-2">1,248</div>
+</div>
+<div class="bg-surface-container-lowest p-stack_md rounded-xl shadow-sm border-l-4 border-tertiary-container">
+<div class="flex justify-between items-start">
+<span class="text-outline text-label-bold">GENERATED</span>
+<span class="material-symbols-outlined text-tertiary-container bg-tertiary-container/10 p-1 rounded">done_all</span>
+</div>
+<div class="font-metric-value text-metric-value text-tertiary-container mt-2">1,120</div>
+</div>
+<div class="bg-surface-container-lowest p-stack_md rounded-xl shadow-sm border-l-4 border-secondary-container">
+<div class="flex justify-between items-start">
+<span class="text-outline text-label-bold">PENDING REVIEW</span>
+<span class="material-symbols-outlined text-secondary-container bg-secondary-container/10 p-1 rounded">pending_actions</span>
+</div>
+<div class="font-metric-value text-metric-value text-secondary-container mt-2">96</div>
+</div>
+<div class="bg-surface-container-lowest p-stack_md rounded-xl shadow-sm border-l-4 border-error">
+<div class="flex justify-between items-start">
+<span class="text-outline text-label-bold">FAILED / ERROR</span>
+<span class="material-symbols-outlined text-error bg-error/10 p-1 rounded">error</span>
+</div>
+<div class="font-metric-value text-metric-value text-error mt-2">32</div>
+</div>
+</div>
+<!-- Payroll Data Table -->
+<div class="px-margin_desktop">
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden border border-outline-variant/50">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant font-label-bold uppercase text-[11px] tracking-widest">
+<th class="px-6 py-4">
+<div class="flex items-center gap-2">
+<input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+                                        Employee
+                                    </div>
+</th>
+<th class="px-6 py-4">Department</th>
+<th class="px-6 py-4 text-right">Gross Pay</th>
+<th class="px-6 py-4 text-right">Deductions</th>
+<th class="px-6 py-4 text-right">Net Pay</th>
+<th class="px-6 py-4 text-center">Status</th>
+<th class="px-6 py-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-primary-fixed/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">SK</div>
+<div>
+<div class="text-body-md font-semibold text-primary">Dr. Sazzad Kabir</div>
+<div class="text-[10px] text-outline">EMP-90210</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">Computer Science</td>
+<td class="px-6 py-4 text-body-md text-right font-medium">৳145,000</td>
+<td class="px-6 py-4 text-body-md text-right text-error font-medium">-৳12,500</td>
+<td class="px-6 py-4 text-body-md text-right font-bold text-primary">৳132,500</td>
+<td class="px-6 py-4 text-center">
+<span class="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant text-[11px] font-bold">GENERATED</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-secondary-container flex items-center gap-1 ml-auto text-xs font-semibold">
+<span class="material-symbols-outlined text-sm">picture_as_pdf</span>
+                                        Payslip
+                                    </button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-primary/2 hover:bg-primary-fixed/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center text-secondary font-bold text-xs">RJ</div>
+<div>
+<div class="text-body-md font-semibold text-primary">Rumana Jahan</div>
+<div class="text-[10px] text-outline">EMP-90215</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">Administration</td>
+<td class="px-6 py-4 text-body-md text-right font-medium">৳85,000</td>
+<td class="px-6 py-4 text-body-md text-right text-error font-medium">-৳8,200</td>
+<td class="px-6 py-4 text-body-md text-right font-bold text-primary">৳76,800</td>
+<td class="px-6 py-4 text-center">
+<span class="px-3 py-1 rounded-full bg-[#e8f5e9] text-[#1b5e20] text-[11px] font-bold">APPROVED</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-secondary-container flex items-center gap-1 ml-auto text-xs font-semibold">
+<span class="material-symbols-outlined text-sm">picture_as_pdf</span>
+                                        Payslip
+                                    </button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-primary-fixed/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed-dim/20 flex items-center justify-center text-tertiary font-bold text-xs">AH</div>
+<div>
+<div class="text-body-md font-semibold text-primary">Abdullah Habib</div>
+<div class="text-[10px] text-outline">EMP-88341</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">Engineering</td>
+<td class="px-6 py-4 text-body-md text-right font-medium">৳112,000</td>
+<td class="px-6 py-4 text-body-md text-right text-error font-medium">-৳10,400</td>
+<td class="px-6 py-4 text-body-md text-right font-bold text-primary">৳101,600</td>
+<td class="px-6 py-4 text-center">
+<span class="px-3 py-1 rounded-full bg-error-container text-on-error-container text-[11px] font-bold">FAILED</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-outline/40 cursor-not-allowed flex items-center gap-1 ml-auto text-xs font-semibold">
+<span class="material-symbols-outlined text-sm">picture_as_pdf</span>
+                                        Payslip
+                                    </button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-primary/2 hover:bg-primary-fixed/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed/20 flex items-center justify-center text-secondary font-bold text-xs">NS</div>
+<div>
+<div class="text-body-md font-semibold text-primary">Nadia Sultana</div>
+<div class="text-[10px] text-outline">EMP-91002</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">Registrar Office</td>
+<td class="px-6 py-4 text-body-md text-right font-medium">৳92,500</td>
+<td class="px-6 py-4 text-body-md text-right text-error font-medium">-৳9,100</td>
+<td class="px-6 py-4 text-body-md text-right font-bold text-primary">৳83,400</td>
+<td class="px-6 py-4 text-center">
+<span class="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant text-[11px] font-bold">GENERATED</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-secondary-container flex items-center gap-1 ml-auto text-xs font-semibold">
+<span class="material-symbols-outlined text-sm">picture_as_pdf</span>
+                                        Payslip
+                                    </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer Actions -->
+<div class="bg-surface-container-low px-margin_desktop py-4 flex flex-col md:flex-row justify-between items-center gap-gutter">
+<div class="flex items-center gap-4">
+<span class="text-body-md text-outline">Showing 1-10 of 1,248 items</span>
+<div class="flex items-center gap-1">
+<button class="p-1 hover:bg-surface-container-high rounded text-primary"><span class="material-symbols-outlined">first_page</span></button>
+<button class="p-1 hover:bg-surface-container-high rounded text-primary"><span class="material-symbols-outlined">chevron_left</span></button>
+<span class="px-3 py-1 bg-primary text-on-primary rounded text-xs font-bold">1</span>
+<span class="px-3 py-1 hover:bg-surface-container-high rounded text-xs text-outline cursor-pointer">2</span>
+<span class="px-3 py-1 hover:bg-surface-container-high rounded text-xs text-outline cursor-pointer">3</span>
+<button class="p-1 hover:bg-surface-container-high rounded text-primary"><span class="material-symbols-outlined">chevron_right</span></button>
+<button class="p-1 hover:bg-surface-container-high rounded text-primary"><span class="material-symbols-outlined">last_page</span></button>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 border border-outline-variant text-primary px-4 py-2 rounded-lg font-semibold hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                            Bulk Export (CSV)
+                        </button>
+<button class="flex items-center gap-2 border border-outline-variant text-primary px-4 py-2 rounded-lg font-semibold hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+                            Email All Payslips
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Info Section (Asymmetric Layout) -->
+<div class="px-margin_desktop py-12 grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="md:col-span-2 relative overflow-hidden rounded-2xl bg-primary h-[200px] flex items-center p-8">
+<div class="relative z-10 max-w-md">
+<h3 class="text-h3 text-on-primary font-bold mb-2">Automate Institutional Compliance</h3>
+<p class="text-on-primary/70 text-body-md mb-4">Ensure all faculty tax deductions and university provident fund contributions are processed according to the latest 2023 financial guidelines.</p>
+<button class="text-secondary-fixed-dim font-bold flex items-center gap-2 hover:underline">
+                        Review Compliance Rules <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<!-- Abstract Texture / Background -->
+<div class="absolute right-0 top-0 w-1/2 h-full opacity-20 pointer-events-none">
+<div class="w-full h-full bg-gradient-to-l from-secondary-fixed-dim to-transparent"></div>
+</div>
+</div>
+<div class="bg-secondary-container p-8 rounded-2xl flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-on-secondary-container scale-150 mb-4">security</span>
+<h3 class="text-h3 text-on-secondary-container font-bold mb-2">Bank Integration</h3>
+<p class="text-on-secondary-container/70 text-body-md">Your payroll data is synced with AIUB's corporate banking portal for instant disbursement.</p>
+</div>
+<div class="mt-4 flex items-center gap-2 text-on-secondary-container font-bold text-xs uppercase tracking-widest">
+<span class="w-2 h-2 rounded-full bg-[#1b5e20]"></span>
+                    Connected to Prime Bank Ltd
+                </div>
+</div>
+</div>
+</main>
+<!-- FAB (Suppressed based on logic for details/transactional, but keeping as a "Help" assistant) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary rounded-full shadow-xl flex items-center justify-center text-on-primary hover:scale-110 active:scale-95 transition-transform z-50">
+<span class="material-symbols-outlined">support_agent</span>
+</button>
+</body></html>

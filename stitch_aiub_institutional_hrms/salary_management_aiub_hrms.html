@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f7f9fc;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for employee list */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c3c6d1;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#d5e3ff",
+                    "surface-container": "#eceef1",
+                    "on-tertiary-fixed-variant": "#00497c",
+                    "tertiary": "#001f39",
+                    "on-secondary-container": "#715300",
+                    "surface-container-low": "#f2f4f7",
+                    "surface": "#f7f9fc",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#3a5f94",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#d1e4ff",
+                    "tertiary-fixed-dim": "#9dcaff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#1f477b",
+                    "secondary-fixed": "#ffdea0",
+                    "on-primary-container": "#799dd6",
+                    "on-secondary-fixed-variant": "#5c4300",
+                    "on-error": "#ffffff",
+                    "inverse-surface": "#2d3133",
+                    "surface-dim": "#d8dadd",
+                    "primary-fixed-dim": "#a7c8ff",
+                    "tertiary-container": "#00355c",
+                    "on-surface": "#191c1e",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#43474f",
+                    "on-tertiary-container": "#50a0ed",
+                    "on-secondary-fixed": "#261a00",
+                    "secondary": "#795900",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#a7c8ff",
+                    "surface-container-highest": "#e0e3e6",
+                    "inverse-on-surface": "#eff1f4",
+                    "secondary-fixed-dim": "#f4be43",
+                    "on-tertiary-fixed": "#001d35",
+                    "surface-variant": "#e0e3e6",
+                    "secondary-container": "#fdc74b",
+                    "primary-container": "#003366",
+                    "surface-container-high": "#e6e8eb",
+                    "background": "#f7f9fc",
+                    "outline": "#737780",
+                    "on-primary-fixed": "#001b3c",
+                    "on-background": "#191c1e",
+                    "on-secondary": "#ffffff",
+                    "primary": "#001e40",
+                    "outline-variant": "#c3c6d1",
+                    "surface-bright": "#f7f9fc",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin_desktop": "40px",
+                    "stack_lg": "24px",
+                    "stack_sm": "8px",
+                    "gutter": "24px",
+                    "container_max_width": "1440px",
+                    "sidebar_width": "260px",
+                    "stack_md": "16px"
+            },
+            "fontFamily": {
+                    "metric-value": ["Plus Jakarta Sans"],
+                    "h3": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "h1": ["Plus Jakarta Sans"],
+                    "h2": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "label-bold": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "metric-value": ["28px", {"lineHeight": "1", "fontWeight": "700"}],
+                    "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-bold": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background">
+<!-- SideNavBar -->
+<aside class="w-[260px] h-screen fixed left-0 top-0 bg-primary-container dark:bg-primary shadow-md flex flex-col h-full py-6 z-50">
+<div class="px-6 mb-8">
+<h1 class="font-h2 text-h2 font-bold text-on-primary">AIUB HRMS</h1>
+<p class="text-on-primary-container font-body-md text-body-md opacity-80">University Management</p>
+</div>
+<nav class="flex-1 overflow-y-auto">
+<a class="text-on-primary-container/80 dark:text-on-primary/80 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="text-on-primary-container/80 dark:text-on-primary/80 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="badge">badge</span>
+<span class="font-body-md text-body-md">Employees</span>
+</a>
+<a class="text-on-primary-container/80 dark:text-on-primary/80 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="domain">domain</span>
+<span class="font-body-md text-body-md">Departments</span>
+</a>
+<a class="bg-surface-container-lowest text-primary dark:text-on-primary-container rounded-full mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="payments" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="font-body-md text-body-md">Salary</span>
+</a>
+<a class="text-on-primary-container/80 dark:text-on-primary/80 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-body-md text-body-md">Payroll</span>
+</a>
+<a class="text-on-primary-container/80 dark:text-on-primary/80 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="event_busy">event_busy</span>
+<span class="font-body-md text-body-md">Leave</span>
+</a>
+<a class="text-on-primary-container/80 dark:text-on-primary/80 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-body-md text-body-md">Reports</span>
+</a>
+<a class="text-on-primary-container/80 dark:text-on-primary/80 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span class="font-body-md text-body-md">Admin</span>
+</a>
+<a class="text-on-primary-container/80 dark:text-on-primary/80 mx-4 my-1 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-4">
+<button class="w-full text-on-primary/80 px-4 py-3 flex items-center gap-3 hover:bg-primary-fixed-dim/20 rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-body-md text-body-md">Logout</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[260px] min-h-screen">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center h-16 px-margin_desktop bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline sticky top-0 z-40 shadow-sm">
+<div class="flex items-center gap-stack_md flex-1">
+<span class="font-h3 text-h3 font-semibold text-primary">HR Management System</span>
+<div class="ml-10 w-full max-w-md relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary text-body-md" placeholder="Search system records..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+</div>
+<div class="flex items-center gap-3">
+<img alt="User Avatar" class="w-10 h-10 rounded-full border-2 border-primary-fixed object-cover" data-alt="A professional headshot of a corporate HR manager in a well-lit modern office setting. He is wearing a sharp navy blue blazer and has a friendly, professional expression. The background shows a soft-focus office with glass partitions and indoor greenery, maintaining a high-key, clean aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9lONwlYoGm4QzOBW9DzoBGEYBKsjqZPgXF9feTdNAAu7HtdLPyav1l3LemkmU-KR0c1w2xoJpVtbtC84kdjFZbXI0L5TYQ7A9Hw0Iz72e1AiXXp6U_9h-LFQ4122EdOQnyR1AhgVe7geVhy-y6STfX4YZ4X5qHd_J4HcfUeQP5IG4OiuJWc2JCPp11qiV91pJhw0GZydh-OY4mcYqrXvrA1Y_oBYtRJ7KwTa8gZ04_8NEXJc21l_F0ja6cAi-a_0mbfkVsgISqyqc"/>
+<div class="hidden xl:block">
+<p class="font-label-bold text-label-bold text-primary">Dr. Rezwan Ahmed</p>
+<p class="text-on-surface-variant text-[11px]">HR Administrator</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Salary Management Dashboard -->
+<div class="p-stack_lg grid grid-cols-12 gap-gutter">
+<!-- Left Panel: Employee List -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 flex flex-col max-h-[calc(100vh-120px)] overflow-hidden">
+<div class="p-6 border-b border-outline-variant/50">
+<h2 class="font-h3 text-h3 text-primary mb-4">Employee Directory</h2>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">filter_list</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg text-body-md focus:border-primary-container focus:ring-0" placeholder="Filter by name or department..." type="text"/>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-2">
+<!-- Active Employee -->
+<button class="w-full flex items-center gap-4 p-4 mb-2 bg-primary-fixed/30 rounded-xl transition-all border-l-4 border-primary">
+<img class="w-12 h-12 rounded-lg object-cover" data-alt="A focused male university professor in his late 30s, wearing glasses and a formal white shirt, in a brightly lit academic office filled with books. The lighting is crisp and natural, highlighting a professional and intellectual atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkFAaDWH-KZhY8MJXZxhEotG82soTOth78v59o0mtaD1D2i7kPr_kIeYXGw9jF6Rp3wD9OEh0l-6SJejPwf_xXt7RUk937M3wLOQPi6pT5lZm2gUxhHGE130jA8WQEH15JRrkBfj477vAsIrJByh8M7aYrCHBopRnIkaPtI-e_HXKnpgfePgaig7Map3S2xqPr1yMdQbXiZcr7c15Rat3M3TpJ7z18vCKd7X2RXqSwLsgk3xBZS4JCpRc5lVCOoQZM6B5oFFfYZryY"/>
+<div class="text-left">
+<p class="font-label-bold text-body-md text-primary">Ahmed Shariful Islam</p>
+<p class="text-on-surface-variant text-[12px]">Dept. of CSE | Senior Lecturer</p>
+</div>
+<span class="ml-auto material-symbols-outlined text-primary text-sm">chevron_right</span>
+</button>
+<!-- Other Employees -->
+<button class="w-full flex items-center gap-4 p-4 mb-2 hover:bg-surface-container transition-all rounded-xl">
+<img class="w-12 h-12 rounded-lg object-cover" data-alt="A professional female administrative officer in her early 40s, wearing traditional formal attire, smiling confidently in a modern, well-lit corporate setting with soft ambient lighting and clean architectural lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDICYaKg7XuOF2i-ATJCi2pSWq-0M-p7XXFU9ihd7RbHKppT9tB5xS0g2d81czZjMcltEIHx_bih70PUrTKE4teErnVVcgR24qAoFaHlIsVtwSJKNrCMV2H2aw7qR63DtT2Ow7yc7lQq48J3QlWVVy1OMQuzNo2G4dxgpGI7jj8OeJ4F6bcb92U-0fC5ITegnP2pLyx4uEpnj1mDatCo6y6cumnOZqAz7YYp8DOpESvqiTOsOD_PhQUHkcPxWPJYGnMUfUzjeZmb3-q"/>
+<div class="text-left">
+<p class="font-label-bold text-body-md text-on-surface">Farhana Yasmin</p>
+<p class="text-on-surface-variant text-[12px]">Registrar Office | Assistant Manager</p>
+</div>
+</button>
+<button class="w-full flex items-center gap-4 p-4 mb-2 hover:bg-surface-container transition-all rounded-xl">
+<img class="w-12 h-12 rounded-lg object-cover" data-alt="A middle-aged male university staff member with a clean-shaven look and professional attire. He is positioned in a modern office with natural light coming from the side, creating soft highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrwaYoUM_D_iAYXqKlzUS2C2JvpWpwuurKlH0_hQFQmSgvqHKBMMQ99IziL_5ycX2Z7eSR1PeE0fjZR30o2RFLr5pebdmbPruHUa5hwZfDT66blrSswQXTJxolaLpeLsJvKGIptIkfXCQw7W3WyS_2zS8M7OkX9R8lNrNS3v-UYvuUiGtIU_H_A77YSMyYNVlkpYZe9wL13chK8_SBgUvEkfEWA0yI2esv-7lGfIG5Nbl3CkbmHGlMdo_FyhdMgEAS0wmfuqkC1lTJ"/>
+<div class="text-left">
+<p class="font-label-bold text-body-md text-on-surface">Dr. Mahbubur Rahman</p>
+<p class="text-on-surface-variant text-[12px]">Dept. of Business | Professor</p>
+</div>
+</button>
+<button class="w-full flex items-center gap-4 p-4 mb-2 hover:bg-surface-container transition-all rounded-xl">
+<img class="w-12 h-12 rounded-lg object-cover" data-alt="A young female HR professional with a bright, welcoming smile, wearing a professional blazer. Background is a clean, minimalist workspace with light blue and white tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2pqYpnHCK_RcMSTvaaOvmQ7ytImGOUPJU8ouWqrTAK-b4aAFEnL63NQqhjasiliMcUYi8R9SXf--oJGv9gkZrBUFWBtZJKEYzxAdi_zM0tHvWPYZtWMh_PR4PYO5GoSAHiR7ZB52logiZitXBfRp11c6xKt9zU0DZSKYrTWjUU0oS3BbCAC6zzUbR0h1RunuAUPvRD3dFPqRRR2u40fX0sUu4hCiotbHkP6O_Md-Ni7dOo-doJjXBlLOqAH-H5eoqfQ0-_ONKuumn"/>
+<div class="text-left">
+<p class="font-label-bold text-body-md text-on-surface">Samia Perveen</p>
+<p class="text-on-surface-variant text-[12px]">Admissions | Senior Officer</p>
+</div>
+</button>
+<button class="w-full flex items-center gap-4 p-4 mb-2 hover:bg-surface-container transition-all rounded-xl">
+<img class="w-12 h-12 rounded-lg object-cover" data-alt="A portrait of a male professional in a modern academic environment. He has a friendly expression and is dressed in business casual attire. The lighting is warm and balanced." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTKfZu1qtmiYOvYialQxOFJVtmVXReVTG0FZXd0ZnT7qflKMDpKd6TwHVTA8ixRDikieEzNfYsGiV9eOczAAIcwg63vFvTKqB2LxgwkKJUVrggKhPX6YPHgq2Cr3yod2okO6cEHvvkfmt-WQOK3ZzgFqyQa61UWo4QQAbAQgTJuXlD-d2F2qcz10sOq6dFElYnm47B1NsN7CrBvDgg5eKY1nIqJ5ZdGgXsS1JuFtV_xVWQbpmHiEU5BlCQ98TGh1lj6sA6xWNwxmha"/>
+<div class="text-left">
+<p class="font-label-bold text-body-md text-on-surface">Kazi Sabbir Ahmed</p>
+<p class="text-on-surface-variant text-[12px]">Dept. of EEE | Lecturer</p>
+</div>
+</button>
+</div>
+</div>
+<!-- Right Panel: Salary Structure Editor -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-gutter">
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 overflow-hidden">
+<div class="p-6 border-b border-outline-variant/50 bg-surface-container-low flex justify-between items-center">
+<div>
+<h2 class="font-h3 text-h3 text-primary">Salary Structure Editor</h2>
+<p class="text-on-surface-variant text-body-md">Editing for: <strong>Ahmed Shariful Islam</strong> (ID: 24-0092)</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 text-primary font-label-bold border border-primary rounded-lg hover:bg-primary/5 transition-colors">History</button>
+<button class="px-4 py-2 bg-primary text-on-primary font-label-bold rounded-lg hover:bg-tertiary transition-colors">Export PDF</button>
+</div>
+</div>
+<div class="p-6 grid grid-cols-2 gap-stack_lg">
+<!-- Earnings Section -->
+<div class="space-y-stack_md">
+<div class="flex items-center gap-2 text-primary font-label-bold mb-2">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+                                EARNINGS
+                            </div>
+<div class="space-y-4">
+<div class="group">
+<label class="block text-label-bold text-on-surface-variant mb-1">Basic Salary</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">৳</span>
+<input class="w-full pl-8 pr-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all" type="text" value="65,000"/>
+</div>
+</div>
+<div class="group">
+<label class="block text-label-bold text-on-surface-variant mb-1">House Rent Allowance</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">৳</span>
+<input class="w-full pl-8 pr-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all" type="text" value="26,000"/>
+</div>
+</div>
+<div class="group">
+<label class="block text-label-bold text-on-surface-variant mb-1">Medical Allowance</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">৳</span>
+<input class="w-full pl-8 pr-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all" type="text" value="5,000"/>
+</div>
+</div>
+<div class="group">
+<label class="block text-label-bold text-on-surface-variant mb-1">Transport Allowance</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">৳</span>
+<input class="w-full pl-8 pr-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all" type="text" value="3,500"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Deductions Section -->
+<div class="space-y-stack_md">
+<div class="flex items-center gap-2 text-error font-label-bold mb-2">
+<span class="material-symbols-outlined text-sm">remove_circle</span>
+                                DEDUCTIONS
+                            </div>
+<div class="space-y-4">
+<div class="group">
+<label class="block text-label-bold text-on-surface-variant mb-1">Income Tax</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">৳</span>
+<input class="w-full pl-8 pr-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-error focus:border-error transition-all" type="text" value="4,200"/>
+</div>
+</div>
+<div class="group">
+<label class="block text-label-bold text-on-surface-variant mb-1">Provident Fund (PF)</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">৳</span>
+<input class="w-full pl-8 pr-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-error focus:border-error transition-all" type="text" value="6,500"/>
+</div>
+</div>
+<div class="group">
+<label class="block text-label-bold text-on-surface-variant mb-1">Loan Recovery</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">৳</span>
+<input class="w-full pl-8 pr-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-error focus:border-error transition-all" type="text" value="0"/>
+</div>
+</div>
+<div class="group pt-4">
+<div class="flex items-center gap-2 text-secondary font-label-bold mb-2">
+<span class="material-symbols-outlined text-sm">stars</span>
+                                        BONUSES &amp; PERKS
+                                    </div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between p-3 bg-surface-container rounded-lg">
+<span class="text-body-md font-medium">Festival Bonus</span>
+<button class="w-10 h-5 bg-primary rounded-full relative transition-colors">
+<span class="absolute right-1 top-1 w-3 h-3 bg-white rounded-full"></span>
+</button>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container rounded-lg">
+<span class="text-body-md font-medium">Performance Incentive</span>
+<button class="w-10 h-5 bg-outline-variant rounded-full relative transition-colors">
+<span class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full"></span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Summary Card -->
+<div class="sticky bottom-6 bg-primary text-on-primary rounded-2xl p-6 shadow-xl flex items-center justify-between">
+<div class="flex gap-12">
+<div>
+<p class="text-label-bold opacity-70 mb-1">Gross Salary</p>
+<p class="font-metric-value text-metric-value">৳ 99,500</p>
+</div>
+<div class="border-r border-on-primary/20"></div>
+<div>
+<p class="text-label-bold opacity-70 mb-1">Total Deductions</p>
+<p class="font-metric-value text-metric-value text-secondary-fixed">৳ 10,700</p>
+</div>
+<div class="border-r border-on-primary/20"></div>
+<div>
+<p class="text-label-bold opacity-70 mb-1">Net Payable</p>
+<p class="font-metric-value text-[36px] leading-none text-white">৳ 88,800</p>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="px-8 py-3 bg-secondary-container text-on-secondary-container font-label-bold rounded-xl hover:bg-secondary-fixed transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined">save</span>
+                            SAVE STRUCTURE
+                        </button>
+</div>
+</div>
+<!-- Recent Activity/Notes (Bento Grid Style) -->
+<div class="grid grid-cols-2 gap-stack_lg">
+<div class="p-6 bg-surface-container rounded-xl border border-outline-variant/30">
+<h4 class="font-label-bold text-primary mb-3">LAST REVISION</h4>
+<div class="flex items-start gap-3">
+<div class="bg-primary/10 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary">history_edu</span>
+</div>
+<div>
+<p class="text-body-md font-medium">Increment Applied</p>
+<p class="text-[12px] text-on-surface-variant">July 15, 2023 by System Admin</p>
+<p class="text-[12px] text-primary mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+                                    5.0% performance adjustment
+                                </p>
+</div>
+</div>
+</div>
+<div class="p-6 bg-surface-container rounded-xl border border-outline-variant/30">
+<h4 class="font-label-bold text-primary mb-3">INTERNAL NOTES</h4>
+<textarea class="w-full bg-transparent border-none p-0 text-body-md focus:ring-0 placeholder:italic" placeholder="Add administrative notes regarding this salary structure..."></textarea>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

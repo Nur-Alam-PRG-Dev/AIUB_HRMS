@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AIUB HRMS - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#d5e3ff",
+                    "surface-container": "#eceef1",
+                    "on-tertiary-fixed-variant": "#00497c",
+                    "tertiary": "#001f39",
+                    "on-secondary-container": "#715300",
+                    "surface-container-low": "#f2f4f7",
+                    "surface": "#f7f9fc",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#3a5f94",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#d1e4ff",
+                    "tertiary-fixed-dim": "#9dcaff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#1f477b",
+                    "secondary-fixed": "#ffdea0",
+                    "on-primary-container": "#799dd6",
+                    "on-secondary-fixed-variant": "#5c4300",
+                    "on-error": "#ffffff",
+                    "inverse-surface": "#2d3133",
+                    "surface-dim": "#d8dadd",
+                    "primary-fixed-dim": "#a7c8ff",
+                    "tertiary-container": "#00355c",
+                    "on-surface": "#191c1e",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#43474f",
+                    "on-tertiary-container": "#50a0ed",
+                    "on-secondary-fixed": "#261a00",
+                    "secondary": "#795900",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#a7c8ff",
+                    "surface-container-highest": "#e0e3e6",
+                    "inverse-on-surface": "#eff1f4",
+                    "secondary-fixed-dim": "#f4be43",
+                    "on-tertiary-fixed": "#001d35",
+                    "surface-variant": "#e0e3e6",
+                    "secondary-container": "#fdc74b",
+                    "primary-container": "#003366",
+                    "surface-container-high": "#e6e8eb",
+                    "background": "#f7f9fc",
+                    "outline": "#737780",
+                    "on-primary-fixed": "#001b3c",
+                    "on-background": "#191c1e",
+                    "on-secondary": "#ffffff",
+                    "primary": "#001e40",
+                    "outline-variant": "#c3c6d1",
+                    "surface-bright": "#f7f9fc",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin_desktop": "40px",
+                    "stack_lg": "24px",
+                    "stack_sm": "8px",
+                    "gutter": "24px",
+                    "container_max_width": "1440px",
+                    "sidebar_width": "260px",
+                    "stack_md": "16px"
+            },
+            "fontFamily": {
+                    "metric-value": ["Plus Jakarta Sans"],
+                    "h3": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "h1": ["Plus Jakarta Sans"],
+                    "h2": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "label-bold": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "metric-value": ["28px", {"lineHeight": "1", "fontWeight": "700"}],
+                    "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-bold": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .geometric-overlay {
+            background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex items-center justify-center p-0 md:p-6 overflow-hidden">
+<main class="w-full max-w-[1200px] h-full md:h-[800px] bg-surface-container-lowest flex flex-col md:flex-row overflow-hidden shadow-2xl rounded-none md:rounded-xl">
+<!-- Left Panel: Brand & Identity -->
+<section class="hidden md:flex md:w-1/2 bg-primary-container relative flex-col items-center justify-center p-16 text-center overflow-hidden">
+<!-- Background Decoration -->
+<div class="absolute inset-0 geometric-overlay opacity-40"></div>
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-primary opacity-20 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-24 -right-24 w-96 h-96 bg-secondary opacity-10 rounded-full blur-3xl"></div>
+<div class="relative z-10 flex flex-col items-center">
+<!-- Branding -->
+<div class="mb-12">
+<img alt="AIUB Logo" class="w-32 h-32 object-contain mb-8 filter drop-shadow-xl" data-alt="A highly professional and crisp rendering of a university crest logo, featuring academic symbols and the acronym AIUB. The logo is displayed in high resolution with a clean white silhouette against a deep navy blue background. The overall aesthetic is institutional, prestigious, and modern, echoing the authority and heritage of the American International University-Bangladesh." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7r3nqaeji-LEraQCdAfJpyG8a7OX2l-byFVH_zNROLh01U1vwgAQR3PDlCNRpoaQYGFxYjmZA6Gbfh8AyqPrBvGPz2LzoLNKnHl78OujyN1k0YM26ZuPj-uzx0Qg7NscjuydV52feNAdCwTG4MtTiimfvVYLEyzVaKuB7oCnwg7JsOYolUZ0wcyxzI0iyNIfUV96HbHu0mYARWby9ZlxbA2P4M40KVBBah4iwPrxOwpLVZ2C6xAeUFcODoblWbjVkUfm3Ovr1aMt7"/>
+<h1 class="font-h1 text-h1 text-on-primary mb-4">AIUB HRMS</h1>
+<p class="font-body-lg text-body-lg text-on-primary-container italic opacity-90">Where Leaders Are Created</p>
+</div>
+<!-- Decorative Illustration / Visual -->
+<div class="w-full max-w-sm rounded-2xl overflow-hidden shadow-lg border border-on-primary-container/20">
+<img alt="University Campus" class="w-full h-64 object-cover" data-alt="A breathtaking view of a modern university campus architecture at sunset, featuring sleek glass buildings and lush green landscapes. The lighting is golden and warm, casting long shadows and creating a peaceful, aspirational atmosphere. The color palette emphasizes deep navies of the sky and the warm gold of the sun, perfectly aligning with the AIUB brand colors for a cohesive and professional institutional look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARt25nYFAkiqM3PZl-KaXbY_UjHIPQLmHPOpB51MrrnEJDkM2Xbl4VlUeNYOzhhM2YkrohjUu67RVzCtKMncspoX_kh1M5qv8EcyJPJ4mKd3cToqT4HVcKv-juYTrcg86xuHcgX2QJniw6F9xLyTzfurv4QJOAqZDqJvpkNgp15VT-PsSfItIxFD4Lq3VTgIs_2IeI6GR3UCPramtLnIacFxH4yeUnnTqYnBRD7NZLO7uDkOhMnrDCOp18d1M1hSLSWmJi0WSL6N8z"/>
+</div>
+</div>
+<!-- Panel Footer -->
+<div class="absolute bottom-8 left-0 right-0">
+<p class="font-label-bold text-label-bold text-on-primary-container/60 uppercase tracking-widest">Excellence in Education</p>
+</div>
+</section>
+<!-- Right Panel: Authentication Form -->
+<section class="w-full md:w-1/2 bg-surface-container-lowest flex flex-col justify-between p-8 md:p-16">
+<div class="w-full max-w-md mx-auto">
+<!-- Mobile Branding (visible only on mobile) -->
+<div class="md:hidden flex items-center gap-4 mb-12">
+<img alt="AIUB" class="rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByb1sSEmVfgOpiXmOqHrsUMwgHx6HK-xcdxvXv1AXuD9pqqE_YpzV34FiI3tx43CswveLRooXll-MmmmEEkAuMYD0M0ABTNyjaO2-kZBjGo4NxxcvWGKr30JB7tLD5OSQd2HszBuy2r7b5RarvG3yuj-xe8u0X0GcA7XrG3UIPza-fSbAMV9JzpkcsVZTYm5dek0cZYn0675HGTE__kJo3SZCDgcFDUyd3Esk3Z5ThN-EJgLfDihGY9GjCGwGKfI5TvUzgHlK2ASp2"/>
+<span class="font-h3 text-h3 text-primary">AIUB HRMS</span>
+</div>
+<header class="mb-10">
+<h2 class="font-metric-value text-metric-value text-primary mb-2">Welcome Back</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Access your administrative portal</p>
+</header>
+<form class="space-y-6" onsubmit="return false;">
+<!-- Email Input -->
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold text-on-surface-variant uppercase" for="email">University Email</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="mail">mail</span>
+<input class="w-full h-12 pl-10 pr-4 bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md outline-none" id="email" placeholder="faculty@aiub.edu" type="email"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<label class="font-label-bold text-label-bold text-on-surface-variant uppercase" for="password">Password</label>
+<a class="font-label-bold text-label-bold text-secondary hover:underline transition-colors" href="#">Forgot Password?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="lock">lock</span>
+<input class="w-full h-12 pl-10 pr-12 bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md outline-none" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-primary" type="button">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<!-- Primary Action -->
+<button class="w-full h-12 bg-primary text-on-primary font-h3 rounded-lg hover:bg-secondary-container hover:text-on-secondary-container active:scale-95 transition-all shadow-md" type="submit">
+                        Sign In
+                    </button>
+<!-- Divider -->
+<div class="relative flex items-center py-4">
+<div class="flex-grow border-t border-outline-variant"></div>
+<span class="flex-shrink mx-4 text-outline font-label-bold">OR CONTINUE WITH</span>
+<div class="flex-grow border-t border-outline-variant"></div>
+</div>
+<!-- Social / Alt Login -->
+<div class="grid grid-cols-1 gap-4">
+<button class="flex items-center justify-center gap-3 w-full h-12 bg-surface-container border border-outline-variant rounded-lg font-h3 text-on-surface hover:bg-surface-container-high transition-colors active:scale-95" type="button">
+<img alt="Google" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnPFYDolgd54Z3K9lEyvdpfpGDFL9rd-Ydy4T1XHC_SrboVXBb-X_8Ejra4ySbLC7YMqjNUJNPgQJ2ruirEF26dYmKPZw6fQd9GUXZHN2pCz_K7uz3zFRD8aLLrS-GGxi6NR7AGDv30UZp3NO_71WfvuBlIzYD3cwoOze8lWJutX4GC8Fk9smIR-skYza-hfJasAtGtMb7l39y5v8u98P8TDDULCvwPXjpdMcu5po3s6yhfGjq4olhcuM0q32wMsLrCsKNjjNHO3I5"/>
+                            Google Workspace
+                        </button>
+</div>
+<!-- OTP Link -->
+<div class="text-center mt-6">
+<p class="font-body-md text-on-surface-variant">
+                            Having trouble? <a class="text-secondary font-label-bold hover:underline" href="#">Verify via OTP</a>
+</p>
+</div>
+</form>
+</div>
+<!-- Footer Section -->
+<footer class="mt-12 pt-8 border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined text-[18px]" data-icon="verified_user">verified_user</span>
+<span class="font-label-bold text-[10px] tracking-wider uppercase">Secured by AIUB IT Department</span>
+</div>
+<div class="flex gap-6">
+<a class="font-label-bold text-[10px] text-outline hover:text-primary uppercase" href="#">Privacy</a>
+<a class="font-label-bold text-[10px] text-outline hover:text-primary uppercase" href="#">Support</a>
+</div>
+</footer>
+</section>
+</main>
+</body></html>
