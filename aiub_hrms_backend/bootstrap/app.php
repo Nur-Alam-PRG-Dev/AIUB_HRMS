@@ -18,7 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'verified.custom' => \App\Http\Middleware\EnsureEmailVerified::class,
         ]);
         
-        $middleware->statefulApi();
+        // $middleware->statefulApi(); // Disabled because we use token-based auth, preventing CSRF issues
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
