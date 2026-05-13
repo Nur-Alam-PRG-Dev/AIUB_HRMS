@@ -15,10 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('password')->nullable(); // null for OAuth-only users
+            $table->string('avatar')->nullable();
+            $table->string('google_id')->nullable()->unique();
+            $table->string('provider')->nullable(); // 'google' | 'email'
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('verification_code', 6)->nullable();
+            $table->timestamp('verification_code_expires_at')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
